@@ -1,0 +1,32 @@
+baseURL: https://example.org/
+languageCode: en-us
+title: Sai Nageswar S
+
+theme: ["PaperMod"]
+
+params:
+  profileMode:
+    enabled: true
+    title: "Sai Nageswar S" # optional default will be site title
+    subtitle: "ML Engineer @Microsoft | Ex-Amazon, Ex-Trilogy Innovations | IIT Madras Alumnus"
+    imageUrl: "/images/profilePic_2.jpg" # optional
+    imageTitle: "Sai Nageswar S" # optional
+    imageWidth: 200 # custom size
+    imageHeight: 200 # custom size
+    buttons:
+      - name: Tech
+        url: "/tech"
+      - name: Fitness
+        url: "/fitness"
+
+  socialIcons: # optional
+    - name: "Github"
+      url: "https://github.com/SaiNageswarS"
+    - name: "LinkedIn"
+      url: "https://www.linkedin.com/in/sainageswar/"
+
+  outputs:
+    home:
+      - HTML
+      - RSS
+      - JSON # necessary for search
