@@ -11,7 +11,7 @@ Classic map-reduce-filter pattern process data step-by-step. For example, a map-
 
 However, in real-time applications, we often need data to be processed as it becomes available. Imagine an LLM agent that summarizes paragraphs from search one by one. Instead of waiting for all sections to finish, it can start streaming summaries to the frontend immediately, giving users faster, progressive feedback.
 
-This inspired me to build a streaming map-filter-reduce in Go, that stream results live, cancel unnecessary work, and run safely across goroutines.
+This inspired me to build [go-collection-boot/linq](https://github.com/SaiNageswarS/go-collection-boot), a Go library that brings streaming map-filter-reduce pipelines to life — allowing results to stream live, cancel unnecessary work, and run safely across goroutines.
 
 ## From Batches to Streams
 
@@ -139,3 +139,31 @@ func SummarizeAndStream(ctx context.Context, sections <-chan *Section) error {
 }
 ```
 
+I used above pattern in [Agent-Boot](https://github.com/SaiNageswarS/agent-boot/blob/19583f1d8c3ee7bdc831aed8bb465049d1f9dae0/agentboot/run_tool.go#L36) for tool execution with summarization support. The performance improvement was significant, from 80 seconds for complete tool result output to front-end to 6 seconds for first summary to be streamed to front-end.
+
+**Before SelectPar (sequential):**
+
+20 sections × 4 seconds each = 80 seconds
+**After SelectPar (parallel streaming):**
+
+- 20 sections in parallel: ~6 seconds total
+- Results stream to user starting at ~4 seconds
+
+**85% improvement with real-time feedback!**
+
+## Conclusion
+
+Streaming map-filter-reduce in Go is a powerful tool for building real-time applications. It allows us to process data as it becomes available, cancel unnecessary work, and run safely across goroutines.
+
+I hope this article has given you a good introduction to the concept and how you can use it in your projects.
+
+Thanks for reading!
+
+### Resources
+[1] [https://github.com/SaiNageswarS/go-collection-boot/blob/master/linq/linq.go](https://github.com/SaiNageswarS/go-collection-boot/blob/master/linq/linq.go)
+
+```sh
+go get github.com/SaiNageswarS/go-collection-boot
+```
+
+[2] Integrations: [Agent-Boot](https://github.com/SaiNageswarS/agent-boot), [Medicine-RAG](https://github.com/SaiNageswarS/medicine-rag)
