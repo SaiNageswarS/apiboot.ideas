@@ -25,6 +25,9 @@ params:
     - name: "LinkedIn"
       url: "https://www.linkedin.com/in/sainageswar/"
 
+  assets:
+    favicon: "/images/favicon.ico"
+
   outputs:
     home:
       - HTML
