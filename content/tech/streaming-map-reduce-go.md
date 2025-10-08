@@ -2,9 +2,10 @@
 date: '2025-10-06T13:24:25Z'
 draft: false
 title: 'Streaming Map-Filter-Reduce in Go: Building Cancellable Pipelines for Real-Time AI'
-description: ''
+description: 'Build streaming, cancellable map-filter-reduce pipelines in Go for real-time AI applications.'
 tags: ['go', 'streaming', 'map-reduce', 'concurrency']
 categories: ['tech']
+comments: true
 ---
 
 Classic map-reduce-filter pattern process data step-by-step. For example, a map-filter-collect on an array of numbers would first transform each number, then filter out the one's that meet a condition, and finally collect the results. 

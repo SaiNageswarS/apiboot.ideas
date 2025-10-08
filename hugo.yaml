@@ -33,3 +33,19 @@ params:
       - HTML
       - RSS
       - JSON # necessary for search
+
+  # Giscus Comments Configuration
+  giscus:
+    # Default configuration (used when post doesn't specify its own repo)
+    defaultRepo: "SaiNageswarS/personalweb" # Default repo for general discussions
+    defaultRepoId: "R_kgDOP9JA3g" # Get this from Giscus setup
+    category: "General" # Category for discussions
+    categoryId: "DIC_kwDOP9JA3s4CwZBZ" # Get this from Giscus setup
+    mapping: "pathname" # How to map pages to discussions
+    reactionsEnabled: "1" # Enable reactions
+    emitMetadata: "0" # Emit discussion metadata
+    inputPosition: "bottom" # Position of comment input
+    theme: "light" # Theme (light, dark, or preferred_color_scheme)
+    lang: "en" # Language
+    loading: "lazy" # Loading strategy
+  comments: true # Enable comments on posts
