@@ -1,29 +1,15 @@
 baseURL: https://sainageswar.apiboot.com
 languageCode: en-us
-title: Sai Nageswar S
+title: αpiβoot Labs
 
 theme: ["PaperMod"]
 
 params:
-  profileMode:
-    enabled: true
-    title: "Sai Nageswar S" # optional default will be site title
-    subtitle: "ML Engineer @Microsoft | Ex-Amazon, Ex-Trilogy Innovations | IIT Madras Alumnus"
-    imageUrl: "/images/profilePic_2.jpg" # optional
-    imageTitle: "Sai Nageswar S" # optional
-    imageWidth: 200 # custom size
-    imageHeight: 200 # custom size
-    buttons:
-      - name: Tech
-        url: "/tech"
-      - name: Fitness
-        url: "/fitness"
+  defaultTheme: dark
 
-  socialIcons: # optional
-    - name: "Github"
-      url: "https://github.com/SaiNageswarS"
-    - name: "LinkedIn"
-      url: "https://www.linkedin.com/in/sainageswar/"
+  homeInfoParams:
+    Title: αpiβoot Labs
+    Content: αpiβoot Labs is a curated space to share ideas, experiences, and tools — across tech, fitness, and lifestyle. A community of builders exploring how we learn, create, and live better.
 
   assets:
     favicon: "/images/favicon.ico"

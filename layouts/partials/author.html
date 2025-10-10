@@ -1,0 +1,25 @@
+{{- if or .Params.author site.Params.author }}
+{{- $author := (.Params.author | default site.Params.author) }}
+{{- $author_type := (printf "%T" $author) }}
+{{- $author_text := "" }}
+{{- if (or (eq $author_type "[]string") (eq $author_type "[]interface {}")) }}
+{{- $author_text = (delimit $author ", " ) }}
+{{- else }}
+{{- $author_text = $author }}
+{{- end }}
+
+{{- $author_photo := "" }}
+{{- $author_link := "" }}
+{{- if (findRE "\\[.*\\]\\(.*\\)" $author_text) }}
+{{- $author_link = (index (findRE "\\(([^)]+)\\)" $author_text) 0) }}
+{{- $author_link = (trim $author_link "()") }}
+{{- $author_photo = printf "/images/%s.jpg" (path.Base $author_link) }}
+{{- end }}
+
+<span style="display: inline-flex; align-items: center; gap: 8px;">
+{{- if $author_photo }}
+<img src="{{ $author_photo }}" alt="Author photo" style="width: 24px; height: 24px; border-radius: 50%; object-fit: cover; vertical-align: middle;" onerror="this.style.display='none'">
+{{- end }}
+<span style="text-decoration: underline;">{{- $author_text | markdownify }}</span>
+</span>
+{{- end -}}

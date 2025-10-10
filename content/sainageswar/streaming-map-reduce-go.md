@@ -1,7 +1,8 @@
 ---
+author: "[Sai Nageswar Satchidanand](/sainageswar)"
 date: '2025-10-06T13:24:25Z'
 draft: false
-title: 'Streaming Map-Filter-Reduce in Go: Building Cancellable Pipelines for Real-Time AI'
+title: 'Streaming Map-Filter-Reduce in Go'
 description: 'Build streaming, cancellable map-filter-reduce pipelines in Go for real-time AI applications.'
 tags: ['go', 'streaming', 'map-reduce', 'concurrency']
 categories: ['tech']

@@ -1,5 +1,6 @@
 ---
-title: "Designing Next-Gen Agentic RAG Systems with go-api-boot and agent-boot"
+title: Agentic RAG using GoLang
+author: "[Sai Nageswar Satchidanand](/sainageswar)"
 date: "2025-10-08T02:49:06Z"
 draft: false
 tags: ["golang", "Micro-Services", "Agentic RAG", "streaming RAG", "temporal"]

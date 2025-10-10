@@ -1,0 +1,17 @@
+{{- $linkedin := .Get "linkedin" -}}
+{{- $github := .Get "github" -}}
+{{- $style := .Get "style" | default "for-the-badge" -}}
+{{- $margin := .Get "margin" | default "0 1rem" -}}
+
+<div style="text-align: left; margin: 2rem 0;">
+  {{- if $linkedin -}}
+  <a href="{{ $linkedin }}" target="_blank" style="display: inline-block; margin: {{ $margin }}; text-decoration: none;">
+    <img src="https://img.shields.io/badge/LinkedIn-0077B5?style={{ $style }}&logo=linkedin&logoColor=white" alt="LinkedIn" />
+  </a>
+  {{- end -}}
+  {{- if $github -}}
+  <a href="{{ $github }}" target="_blank" style="display: inline-block; margin: {{ $margin }}; text-decoration: none;">
+    <img src="https://img.shields.io/badge/GitHub-100000?style={{ $style }}&logo=github&logoColor=white" alt="GitHub" />
+  </a>
+  {{- end -}}
+</div>

@@ -1,0 +1,8 @@
+{{- $image := .Get "src" | default "/static/images/sainageswar.jpg" -}}
+{{- $alt := .Get "alt" | default "Profile Image" -}}
+{{- $size := .Get "size" | default "200" -}}
+{{- $margin := .Get "margin" | default "2rem" -}}
+
+<div style="text-align: center; margin: {{ $margin }} 0; min-width: {{ $size }}px;">
+  <img src="{{ $image }}" alt="{{ $alt }}" style="border-radius: 50%; width: {{ $size }}px; height: {{ $size }}px; object-fit: cover; max-width: none; flex-shrink: 0;" />
+</div>
