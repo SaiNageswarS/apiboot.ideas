@@ -4,6 +4,11 @@ title: αpiβoot Ideas
 
 theme: ["PaperMod"]
 
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+
 params:
   defaultTheme: dark
 
@@ -13,6 +18,7 @@ params:
 
   assets:
     favicon: "/images/favicon.ico"
+    custom_css: ["/css/custom.css"]
 
   outputs:
     home:

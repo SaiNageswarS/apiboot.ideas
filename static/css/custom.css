@@ -1,0 +1,68 @@
+/* Custom responsive profile layout */
+.profile-container {
+    display: flex;
+    align-items: flex-start;
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+.profile-content {
+    flex: 1;
+}
+
+.profile-image-container {
+    flex-shrink: 0;
+    text-align: center;
+}
+
+/* Mobile responsive design */
+@media (max-width: 768px) {
+    .profile-container {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 1rem;
+    }
+    
+    .profile-content {
+        order: 2;
+        width: 100%;
+    }
+    
+    .profile-image-container {
+        order: 1;
+        margin-bottom: 1rem;
+    }
+}
+
+/* Override table styles for mobile */
+@media (max-width: 768px) {
+    .post-content table {
+        display: block;
+        width: 100%;
+    }
+    
+    .post-content table tbody {
+        display: block;
+        width: 100%;
+    }
+    
+    .post-content table tr {
+        display: block;
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+    
+    .post-content table td {
+        display: block;
+        width: 100% !important;
+        padding: 0.5rem 0;
+        border: none;
+        text-align: center;
+    }
+    
+    .post-content table td:first-child {
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+    }
+}
