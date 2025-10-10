@@ -1,6 +1,6 @@
-baseURL: https://sainageswar.apiboot.com
+baseURL: https://ideas.apiboot.com
 languageCode: en-us
-title: αpiβoot Labs
+title: αpiβoot Ideas
 
 theme: ["PaperMod"]
 
@@ -8,8 +8,8 @@ params:
   defaultTheme: dark
 
   homeInfoParams:
-    Title: αpiβoot Labs
-    Content: αpiβoot Labs is a curated space to share ideas, experiences, and tools — across tech, fitness, and lifestyle. A community of builders exploring how we learn, create, and live better.
+    Title: αpiβoot Ideas
+    Content: αpiβoot Ideas is a curated space to share ideas, experiences, and tools — across tech, fitness, and lifestyle. A community of builders exploring how we learn, create, and live better.
 
   assets:
     favicon: "/images/favicon.ico"
