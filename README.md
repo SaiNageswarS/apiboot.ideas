@@ -1,12 +1,12 @@
-# αpiβoot Ideas
+# αpiβoot Prism
 
 A content platform to share knowledge, ideas, and experiences across technology, fitness, and lifestyle.
 
-🌐 **Live Site**: [ideas.apiboot.com](https://ideas.apiboot.com)
+🌐 **Live Site**: [prism.apiboot.com](https://prism.apiboot.com)
 
 ## About
 
-αpiβoot Ideas is a curated space to share ideas, experiences, and tools — across tech, fitness, and lifestyle. A community of builders exploring how we learn, create, and live better.
+αpiβoot Prism is a curated space to share ideas, experiences, and tools — across tech, fitness, and lifestyle. A community of builders exploring how we learn, create, and live better.
 
 ## Contributing Articles
 

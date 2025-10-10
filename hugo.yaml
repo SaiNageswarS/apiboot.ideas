@@ -1,6 +1,6 @@
-baseURL: https://ideas.apiboot.com
+baseURL: https://prism.apiboot.com
 languageCode: en-us
-title: αpiβoot Ideas
+title: αpiβoot Prism
 
 theme: ["PaperMod"]
 
@@ -13,8 +13,8 @@ params:
   defaultTheme: dark
 
   homeInfoParams:
-    Title: αpiβoot Ideas
-    Content: αpiβoot Ideas is a curated space to share ideas, experiences, and tools — across tech, fitness, and lifestyle. A community of builders exploring how we learn, create, and live better.
+    Title: αpiβoot Prism
+    Content: αpiβoot Prism is a curated space to share ideas, experiences, and tools — across tech, fitness, and lifestyle. A community of builders exploring how we learn, create, and live better. Just as a prism disperses white light to reveal its many colors, this platform celebrates diverse viewpoints that make life richer, sharper, and more colorful.
 
   assets:
     favicon: "/images/favicon.ico"
