@@ -66,3 +66,33 @@
         margin-bottom: 0.5rem;
     }
 }
+
+/* Footer contribution link styling */
+.footer-links {
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.footer-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--theme);
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--theme);
+    border-radius: 0.375rem;
+    transition: all 0.2s ease;
+}
+
+.footer-link:hover {
+    background-color: var(--theme);
+    color: var(--primary);
+    text-decoration: none;
+}
+
+.footer-link svg {
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
+}

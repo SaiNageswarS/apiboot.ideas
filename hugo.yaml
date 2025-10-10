@@ -9,6 +9,17 @@ markup:
     renderer:
       unsafe: true
 
+# Navigation menu
+menu:
+  main:
+    - identifier: contribute
+      name: Add Article
+      url: https://github.com/SaiNageswarS/apiboot.ideas
+      weight: 10
+      params:
+        target: "_blank"
+        rel: "noopener noreferrer"
+
 params:
   defaultTheme: dark
 
@@ -41,3 +52,7 @@ params:
     lang: "en" # Language
     loading: "lazy" # Loading strategy
   comments: true # Enable comments on posts
+
+  # Footer configuration
+  footer:
+    text: '<a href="https://github.com/SaiNageswarS/apiboot.ideas" target="_blank" rel="noopener">Add Article</a>'
