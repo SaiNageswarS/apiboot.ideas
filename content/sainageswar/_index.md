@@ -6,7 +6,7 @@ type: "page"
 
 <div class="profile-container">
     <div class="profile-image-container">
-        {{< profile-image src="/images/sainageswar.jpg" alt="Sai Nageswar Satchidanand" 
+        {{< profile-image src="/images/sainageswar/profile_pic.jpg" alt="Sai Nageswar Satchidanand" 
         size="200" margin="2rem" >}}
     </div>
     <div class="profile-content">
