@@ -1,5 +1,6 @@
 {{- $linkedin := .Get "linkedin" -}}
 {{- $github := .Get "github" -}}
+{{- $topmate := .Get "topmate" -}}
 {{- $style := .Get "style" | default "for-the-badge" -}}
 {{- $margin := .Get "margin" | default "0 1rem" -}}
 
@@ -12,6 +13,11 @@
   {{- if $github -}}
   <a href="{{ $github }}" target="_blank" style="display: inline-block; margin: {{ $margin }}; text-decoration: none;">
     <img src="https://img.shields.io/badge/GitHub-100000?style={{ $style }}&logo=github&logoColor=white" alt="GitHub" />
+  </a>
+  {{- end -}}
+  {{- if $topmate -}}
+  <a href="{{ $topmate }}" target="_blank" style="display: inline-block; margin: {{ $margin }}; text-decoration: none;">
+    <img src="https://img.shields.io/badge/Topmate-FF6B6B?style={{ $style }}&logo=topmate&logoColor=white" alt="Topmate" />
   </a>
   {{- end -}}
 </div>
