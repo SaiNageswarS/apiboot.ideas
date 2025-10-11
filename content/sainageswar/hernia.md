@@ -27,8 +27,47 @@ I managed classes and research, wearing tight underwear and walking very slowly.
 ## Turning to Yoga
 
 Instead of giving up, I decided to try yoga. I began practicing two poses regularly:
+
 - Sarvangasana (Shoulder Stand)
 - Navasana (Boat Pose)
 
+| | |
+|:---:|:---:|
+| ![Sarvangasana](/images/sainageswar/sarvangasan.jpeg) | ![Sarvangasana](/images/sainageswar/sarvangasan.jpeg) |
 
 
+Six months into consistent practice, I noticed something remarkable: my right-side hernia was no longer slipping out. It felt like the defect had closed or at least was being held strongly in place.
+
+## Rediscovering Strength Through Calisthenics
+
+Encouraged, I started calisthenics — bodyweight training that focuses on core stability and strength. Moves like:
+
+- Toes to Bar
+- L-Sit Pull-Ups
+- Headstands and Handstands
+
+| | |
+|:---:|:---:|
+| ![Toes to Bar](/images/sainageswar/toes_to_bar.gif) | ![Headstands](/images/sainageswar/headstands.jpeg)  |
+| ![cranePose](/images/sainageswar/cranePose.jpg)  | ![Handstands](/images/sainageswar/handstand.jpeg) |
+
+
+Over the next few years, my left-side hernia also gradually stopped protruding. For the past four years, both sides have remained stable. No pain. No bulge. No surgery.
+
+## Why Did This Work?
+
+I’m not a doctor, and this isn’t medical advice. But reflecting on my journey, here’s what I think happened:
+
+Yoga and calisthenics strengthened my core muscles, especially the transversus abdominis and obliques, creating a natural “corset” around the weak spot.
+
+Consistent intra-abdominal pressure training taught my body to keep tissues contained.
+
+Scar tissue and muscle reinforcement may have sealed or minimized the defect.
+
+While mainstream medicine doesn’t recognize natural closure of hernias, my lived experience suggests that functional healing is possible.
+
+## A Personal Note
+
+I want to be clear: if you have an inguinal hernia, don’t ignore medical advice. Surgery remains the standard recommendation. But if your symptoms are mild, and you want to explore strengthening as a supportive measure, yoga and calisthenics may help.
+
+For me, these practices transformed what felt like an inevitable surgery into a story of recovery, resilience, and renewed strength.
