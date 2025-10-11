@@ -12,6 +12,10 @@ markup:
 # Navigation menu
 menu:
   main:
+    - identifier: search
+      name: Search
+      url: /search/
+      weight: 5
     - identifier: contribute
       name: Add Article
       url: https://github.com/SaiNageswarS/apiboot.ideas
@@ -19,6 +23,12 @@ menu:
       params:
         target: "_blank"
         rel: "noopener noreferrer"
+
+outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON # necessary for search
 
 params:
   defaultTheme: dark
@@ -30,12 +40,6 @@ params:
   assets:
     favicon: "/images/favicon.ico"
     custom_css: ["/css/custom.css"]
-
-  outputs:
-    home:
-      - HTML
-      - RSS
-      - JSON # necessary for search
 
   # Giscus Comments Configuration
   giscus:
