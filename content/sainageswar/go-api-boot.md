@@ -165,7 +165,7 @@ go-api-boot provides gRpc streaming support for the microservices. This can be u
 
 Below is screen grab of [medicine-rag](https://github.com/SaiNageswarS/medicine-rag) in action.
 
-![Medicine RAG Demo](/images/medicine-rag.gif)
+![Medicine RAG Demo](/images/sainageswar/medicine-rag.gif)
 
 Further, agent-boot supports gRpc stream to provide updates of internal agent state like tool selection, tool execution, and answer generation with reasoning.
 

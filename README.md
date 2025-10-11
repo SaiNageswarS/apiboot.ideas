@@ -19,9 +19,9 @@ content/your-username/
 ```
 
 ### 2. Add Author Image
-Add your profile image as `author.jpg` in the `static/images/` directory:
+Create a folder for your username in the `static/images/` directory and add your profile image as `profile_pic.jpg`:
 ```
-static/images/your-username.jpg
+static/images/your-username/profile_pic.jpg
 ```
 
 ### 3. Create Your Article

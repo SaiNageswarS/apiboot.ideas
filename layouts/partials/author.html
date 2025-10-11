@@ -13,7 +13,7 @@
 {{- if (findRE "\\[.*\\]\\(.*\\)" $author_text) }}
 {{- $author_link = (index (findRE "\\(([^)]+)\\)" $author_text) 0) }}
 {{- $author_link = (trim $author_link "()") }}
-{{- $author_photo = printf "/images/%s.jpg" (path.Base $author_link) }}
+{{- $author_photo = printf "/images/%s/profile_pic.jpg" (path.Base $author_link) }}
 {{- end }}
 
 <span style="display: inline-flex; align-items: center; gap: 8px;">
