@@ -2,7 +2,7 @@
 title: How Yoga and Calisthenics Helped Me Heal My Inguinal Hernia Without Surgery
 author: "[Sai Nageswar Satchidanand](/sainageswar)"
 date: "2025-10-03T02:49:06Z"
-draft: true
+draft: false
 tags: ["hernia", "Natural Healing", "Yoga", "Calisthenics"]
 description: "A personal story of how yoga and calisthenics helped me recover from two inguinal hernias — without surgery, through core strength and patience."
 comments: true
@@ -48,7 +48,7 @@ Encouraged, I started calisthenics — bodyweight training that focuses on core 
 
 | | |
 |:---:|:---:|
-| ![Toes to Bar](/images/sainageswar/toes_to_bar.gif) | ![Headstands](/images/sainageswar/headstands.jpeg)  |
+| ![Toes to Bar](/images/sainageswar/toes_to_bar.gif) | ![L-Sit Pull-Ups](/images/sainageswar/L_Sit_PullUps_2.gif)  |
 | ![cranePose](/images/sainageswar/cranePose_1.jpg)  | ![Handstands](/images/sainageswar/handstand_1.jpeg) |
 
 
