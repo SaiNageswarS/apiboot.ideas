@@ -33,7 +33,7 @@ Instead of giving up, I decided to try yoga. I began practicing two poses regula
 
 | | |
 |:---:|:---:|
-| ![Sarvangasana](/images/sainageswar/sarvangasan.jpeg) | ![Sarvangasana](/images/sainageswar/sarvangasan.jpeg) |
+| ![Sarvangasana](/images/sainageswar/sarvangasan_1.jpeg) | ![Navasana](/images/sainageswar/navasana_2.gif) |
 
 
 Six months into consistent practice, I noticed something remarkable: my right-side hernia was no longer slipping out. It felt like the defect had closed or at least was being held strongly in place.
@@ -49,7 +49,7 @@ Encouraged, I started calisthenics — bodyweight training that focuses on core 
 | | |
 |:---:|:---:|
 | ![Toes to Bar](/images/sainageswar/toes_to_bar.gif) | ![Headstands](/images/sainageswar/headstands.jpeg)  |
-| ![cranePose](/images/sainageswar/cranePose.jpg)  | ![Handstands](/images/sainageswar/handstand.jpeg) |
+| ![cranePose](/images/sainageswar/cranePose_1.jpg)  | ![Handstands](/images/sainageswar/handstand_1.jpeg) |
 
 
 Over the next few years, my left-side hernia also gradually stopped protruding. For the past four years, both sides have remained stable. No pain. No bulge. No surgery.
