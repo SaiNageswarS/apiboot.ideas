@@ -1,0 +1,55 @@
+# αpiβoot Prism robots.txt
+# Allowing search engines and AI crawlers to access and learn from public content.
+
+# Content signals (Cloudflare standard)
+# search:   building a search index and providing search results.
+# ai-input: inputting content into AI models for retrieval-augmented generation or reasoning.
+# ai-train: training or fine-tuning AI models.
+
+# These content signals are expressed as "yes" for all uses.
+
+# --- Content Signals ---
+content-signal: search=yes
+content-signal: ai-input=yes
+content-signal: ai-train=yes
+
+# --- Crawler Access Directives ---
+
+User-agent: *
+Allow: /
+
+# Sitemap for faster discovery
+Sitemap: https://prism.apiboot.com/sitemap.xml
+
+# --- Explicit AI Crawler Permissions ---
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+# Optional: Keep these friendly crawlers visible for analysis
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
