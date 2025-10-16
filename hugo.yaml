@@ -38,8 +38,8 @@ params:
   defaultTheme: dark
 
   homeInfoParams:
-    Title: αpiβoot Prism
-    Content: αpiβoot Prism is a curated space to share ideas, experiences, and tools — across tech, fitness, and lifestyle. A community of builders exploring how we learn, create, and live better. Just as a prism disperses white light to reveal its many colors, this platform celebrates diverse viewpoints that make life richer, sharper, and more colorful.
+    Title: apiboot Prism
+    Content: apiboot Prism is a curated space to share ideas, experiences, and tools — across tech, fitness, and lifestyle. A community of builders exploring how we learn, create, and live better. Just as a prism disperses white light to reveal its many colors, this platform celebrates diverse viewpoints that make life richer, sharper, and more colorful.
 
   assets:
     favicon: "/images/favicon.ico"
