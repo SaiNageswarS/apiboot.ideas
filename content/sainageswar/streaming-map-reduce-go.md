@@ -4,7 +4,7 @@ date: '2025-10-06T13:24:25Z'
 draft: false
 title: 'Streaming Map-Filter-Reduce in Go'
 description: 'Build streaming, cancellable map-filter-reduce pipelines in Go for real-time AI applications.'
-tags: ['go', 'streaming', 'map-reduce', 'concurrency']
+tags: ['golang', 'streaming', 'map-reduce', 'concurrency']
 categories: ['tech']
 comments: true
 ---

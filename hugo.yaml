@@ -16,6 +16,10 @@ menu:
       name: Search
       url: /search/
       weight: 5
+    - identifier: tags
+      name: Topics
+      url: /tags/
+      weight: 7
     - identifier: contribute
       name: Add Article
       url: https://github.com/SaiNageswarS/apiboot.ideas
