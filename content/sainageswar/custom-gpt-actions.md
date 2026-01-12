@@ -2,9 +2,9 @@
 author: "[Sai Nageswar Satchidanand](/sainageswar)"
 date: '2025-01-12T13:24:25Z'
 draft: false
-title: 'Building Custom-GPT with RAG System in Go'
+title: 'Building Custom-GPT Actions & RAG Backend in Go'
 description: '~300 lines of Go for a complete retrieval-augmented generation backend serving ChatGPT Custom GPT Actions'
-tags: ['golang', 'chatgpt', 'custom-actions', 'custom-gpt']
+tags: ['Custom GPT Actions', 'RAG', 'golang']
 categories: ['tech']
 comments: true
 ---
