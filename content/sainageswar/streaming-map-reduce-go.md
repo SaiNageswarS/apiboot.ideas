@@ -141,7 +141,7 @@ func SummarizeAndStream(ctx context.Context, sections <-chan *Section) error {
 }
 ```
 
-I used above pattern in [Agent-Boot](https://github.com/SaiNageswarS/agent-boot/blob/19583f1d8c3ee7bdc831aed8bb465049d1f9dae0/agentboot/run_tool.go#L36) for tool execution with summarization support. The performance improvement was significant, from 80 seconds for complete tool result output to front-end to 6 seconds for first summary to be streamed to front-end.
+I used above pattern in [Agent-Boot](https://github.com/SaiNageswarS/agent-boot/blob/7f2c1c3a1651d66b74af8c955e093e2436315a0d/agentboot/tool_result_renderer.go#L59) for tool execution with summarization support. The performance improvement was significant, from 80 seconds for complete tool result output to front-end to 6 seconds for first summary to be streamed to front-end.
 
 **Before SelectPar (sequential):**
 
