@@ -28,6 +28,172 @@ We'll use two Go frameworks:
 
 ## The Interesting Parts
 
+### 1. Hybrid Search with Reciprocal Rank Fusion
+
+Neither vector nor text search alone is sufficient. Vector search captures semantics but misses exact keywords. Text search finds exact matches but misses related concepts.
+
+The naive solution — normalizing scores and averaging — is fragile. BM25 scores range 0-1000+, cosine similarity is -1 to 1, and both drift when you rebuild indexes or swap embedding models.
+
+**RRF uses rank instead of score.** The formula: `score(d) = Σ weight / (k + rank)`
+
+```go
+const rrfK = 60 // from the original RRF paper
+
+func (s *SearchTool) hybridSearch(ctx context.Context, query string) []*ChunkModel {
+    // Fire both searches in parallel
+    textTask := s.chunkRepository.TermSearch(ctx, query, odm.TermSearchParams{
+        IndexName: db.TextSearchIndexName,
+        Path:      db.TextSearchPaths,
+        Limit:     20,
+    })
+
+    embedding, _ := s.embedder.GetEmbedding(ctx, query, embed.WithTask("retrieval.query"))
+    vecTask := s.vectorRepository.VectorSearch(ctx, embedding, odm.VectorSearchParams{
+        IndexName:     db.VectorIndexName,
+        Path:          db.VectorPath,
+        K:             20,
+        NumCandidates: 100,
+    })
+
+    // Collect ranks from each engine
+    textRanks, cache := collectTextSearchRanks(textTask)
+    vecRanks := collectVectorSearchRanks(vecTask)
+
+    // RRF: rank-based fusion
+    combined := make(map[string]float64)
+    for id, r := range textRanks {
+        combined[id] = 1.0 / float64(rrfK+r)
+    }
+    for id, r := range vecRanks {
+        combined[id] += 1.0 / float64(rrfK+r)
+    }
+
+    // Keep top-N with min-heap
+    h := ds.NewMinHeap(func(a, b pair) bool { return a.score < b.score })
+    for id, sc := range combined {
+        h.Push(pair{id, sc})
+        if h.Len() > maxChunks {
+            h.Pop()
+        }
+    }
+
+    return s.fetchChunksByIds(ctx, cache, h.ToSortedSlice())
+}
+```
+
+Rank #1 gets `1/61 ≈ 0.016`. Rank #20 gets `1/80 = 0.0125`. A document appearing high in both lists accumulates significantly more weight than one appearing only in the tail of one list.
+
+Ref: [Search Tool Implementation](https://github.com/SaiNageswarS/medicine-rag-custom-gpt/blob/master/mcp/search.go)
+
+---
+
+### 2. Chunk Stitching: From Fragments to Coherent Context
+
+Retrieved chunks rarely stand alone. A chunk might contain "...continuing the treatment protocol described above" — useless without its predecessor. Naive RAG systems return fragmented, incoherent passages.
+
+Our solution: each chunk stores `PrevChunkID` and `NextChunkID`. After hybrid search ranks chunks, we stitch them with their neighbors:
+
+```go
+// For each retrieved chunk, collect its neighbors
+for _, ch := range sectionChunks {
+    if id := ch.PrevChunkID; id != "" && !added.Contains(id) {
+        added.Add(id)
+        needIds = append(needIds, id)
+    }
+    
+    if id := ch.ChunkID; id != "" && !added.Contains(id) {
+        added.Add(id)
+        needIds = append(needIds, id)
+    }
+    
+    if id := ch.NextChunkID; id != "" && !added.Contains(id) {
+        added.Add(id)
+        needIds = append(needIds, id)
+    }
+}
+
+// Fetch all neighbors in one DB round-trip
+allChunks := s.fetchChunksByIds(ctx, cache, needIds)
+
+// Join sentences from contiguous chunks
+sentences := make([]string, 0, len(allChunks)*20)
+for _, chunk := range allChunks {
+    sentences = append(sentences, chunk.Sentences...)
+}
+```
+
+The result: if chunk N is retrieved, chunks N-1 and N+1 are automatically included. Consecutive retrieved chunks (N, N+1, N+2) merge into a single contiguous passage. The LLM sees coherent text, not sentence fragments.
+
+This is grouped by `SectionID` — chunks from the same document section are combined, sorted by `WindowIndex`, and emitted as a single `ToolResultChunk` with full context.
+
+**Why Chunk Stitching?** This chunking strategy becomes particularly crucial for documents with poor hierarchical structure or sections that exceed natural semantic boundaries. While documents with good hierarchy and clear section divisions may not require this approach, it has been tested extensively on large, unstructured documents with sections exceeding 800 words. The process involves breaking sections at sentence boundaries, then creating sliding windows of 700 tokens per chunk. To maintain semantic continuity, each chunk includes a small overlap with its predecessor during the embedding process, ensuring context preservation across chunk boundaries.
+
+Ref: [Chunk Stitching Implementation](https://github.com/SaiNageswarS/medicine-rag-custom-gpt/blob/master/mcp/search.go#L77-L118)
+
+---
+
+### 3. Query-Focused Summarization with SLM & Rendering
+
+Raw retrieved passages often contain noise — tangential details, boilerplate, context that doesn't address the query. Dumping everything into the final LLM wastes tokens and dilutes attention.
+
+The solution: **summarize each passage with respect to the query using a small, fast model (SLM) before the final LLM generates the answer.**
+
+![Summarization Flow Diagram](/images/sainageswar/custom_gpt_summarization_flow.jpg)
+
+This two-stage approach focuses attention. The SLM extracts query-relevant content from each passage; the final LLM (ChatGPT in our case) reasons over clean, focused context.
+
+agent-boot's `ToolResultRenderer` handles this:
+
+```go
+// Configure with a fast SLM for summarization
+llmClient := llm.NewAnthropicClient("claude-3-5-haiku-20241022")
+renderer := agentboot.NewToolResultRenderer(
+    agentboot.WithSummarizationModel(llmClient),
+)
+```
+
+Ref: [Using Tool Result Renderer](https://github.com/SaiNageswarS/medicine-rag-custom-gpt/blob/master/controller/query_controller.go#L143)
+
+The renderer summarizes each chunk with respect to the query and formats results as Markdown. Why Markdown over JSON? JSON is verbose, consumes more tokens, and a cluttered JSON context can overwhelm the LLM — leading to hallucinations or missed details. agent-boot's `ToolResultRenderer` formats results to Markdown by default.
+
+```go
+toolResultChunks, err := linq.Pipe4(
+    linq.NewStream(linqCtx, toolResultChan, cancel, 10),
+
+    linq.SelectPar(func(raw *schema.ToolResultChunk) *schema.ToolResultChunk {
+        if summarizeResult {
+            return r.summarizeResult(linqCtx, raw, query, toolInputsMD)
+        }
+
+        // If summarization is not enabled, return the raw result
+        return raw
+    }),
+
+    linq.Where(func(chunk *schema.ToolResultChunk) bool {
+        // Filter out nil results and those marked as irrelevant
+        if chunk == nil {
+            return false
+        }
+
+        return true
+    }),
+
+    linq.Select(func(chunk *schema.ToolResultChunk) string {
+        r.reporter.Send(NewToolExecutionResult(r.toolName, chunk))
+        s := formatToolResultToMD(chunk)
+        return string(s)
+    }),
+
+    linq.ToSlice[string](),
+)
+```
+
+Ref: [Tool Result Renderer Implementation](https://github.com/SaiNageswarS/agent-boot/blob/master/agentboot/tool_result_renderer.go)
+
+---
+
+## Supporting Framework: go-api-boot
+
 ### 1. Dependency Injection Without the Ceremony
 
 Most Go DI solutions feel like Java. go-api-boot takes a different approach — provider functions that declare their dependencies through function signatures:
@@ -135,169 +301,7 @@ Ref:
 
 ---
 
-### 3. Hybrid Search with Reciprocal Rank Fusion
-
-Neither vector nor text search alone is sufficient. Vector search captures semantics but misses exact keywords. Text search finds exact matches but misses related concepts.
-
-The naive solution — normalizing scores and averaging — is fragile. BM25 scores range 0-1000+, cosine similarity is -1 to 1, and both drift when you rebuild indexes or swap embedding models.
-
-**RRF uses rank instead of score.** The formula: `score(d) = Σ weight / (k + rank)`
-
-```go
-const rrfK = 60 // from the original RRF paper
-
-func (s *SearchTool) hybridSearch(ctx context.Context, query string) []*ChunkModel {
-    // Fire both searches in parallel
-    textTask := s.chunkRepository.TermSearch(ctx, query, odm.TermSearchParams{
-        IndexName: db.TextSearchIndexName,
-        Path:      db.TextSearchPaths,
-        Limit:     20,
-    })
-
-    embedding, _ := s.embedder.GetEmbedding(ctx, query, embed.WithTask("retrieval.query"))
-    vecTask := s.vectorRepository.VectorSearch(ctx, embedding, odm.VectorSearchParams{
-        IndexName:     db.VectorIndexName,
-        Path:          db.VectorPath,
-        K:             20,
-        NumCandidates: 100,
-    })
-
-    // Collect ranks from each engine
-    textRanks, cache := collectTextSearchRanks(textTask)
-    vecRanks := collectVectorSearchRanks(vecTask)
-
-    // RRF: rank-based fusion
-    combined := make(map[string]float64)
-    for id, r := range textRanks {
-        combined[id] = 1.0 / float64(rrfK+r)
-    }
-    for id, r := range vecRanks {
-        combined[id] += 1.0 / float64(rrfK+r)
-    }
-
-    // Keep top-N with min-heap
-    h := ds.NewMinHeap(func(a, b pair) bool { return a.score < b.score })
-    for id, sc := range combined {
-        h.Push(pair{id, sc})
-        if h.Len() > maxChunks {
-            h.Pop()
-        }
-    }
-
-    return s.fetchChunksByIds(ctx, cache, h.ToSortedSlice())
-}
-```
-
-Rank #1 gets `1/61 ≈ 0.016`. Rank #20 gets `1/80 = 0.0125`. A document appearing high in both lists accumulates significantly more weight than one appearing only in the tail of one list.
-
-Ref: [Search Tool Implementation](https://github.com/SaiNageswarS/medicine-rag-custom-gpt/blob/master/mcp/search.go)
-
----
-
-### 4. Chunk Stitching for Contiguous Context
-
-Retrieved chunks rarely stand alone. A chunk might contain "...continuing the treatment protocol described above" — useless without its predecessor. Naive RAG systems return fragmented, incoherent passages.
-
-Our solution: each chunk stores `PrevChunkID` and `NextChunkID`. After hybrid search ranks chunks, we stitch them with their neighbors:
-
-```go
-// For each retrieved chunk, collect its neighbors
-for _, ch := range sectionChunks {
-    if id := ch.PrevChunkID; id != "" && !added.Contains(id) {
-        added.Add(id)
-        needIds = append(needIds, id)
-    }
-    
-    if id := ch.ChunkID; id != "" && !added.Contains(id) {
-        added.Add(id)
-        needIds = append(needIds, id)
-    }
-    
-    if id := ch.NextChunkID; id != "" && !added.Contains(id) {
-        added.Add(id)
-        needIds = append(needIds, id)
-    }
-}
-
-// Fetch all neighbors in one DB round-trip
-allChunks := s.fetchChunksByIds(ctx, cache, needIds)
-
-// Join sentences from contiguous chunks
-sentences := make([]string, 0, len(allChunks)*20)
-for _, chunk := range allChunks {
-    sentences = append(sentences, chunk.Sentences...)
-}
-```
-
-The result: if chunk N is retrieved, chunks N-1 and N+1 are automatically included. Consecutive retrieved chunks (N, N+1, N+2) merge into a single contiguous passage. The LLM sees coherent text, not sentence fragments.
-
-This is grouped by `SectionID` — chunks from the same document section are combined, sorted by `WindowIndex`, and emitted as a single `ToolResultChunk` with full context.
-
-Ref: [Chunk Stitching Implementation](https://github.com/SaiNageswarS/medicine-rag-custom-gpt/blob/master/mcp/search.go#L77-L118)
-
----
-
-### 5. Query-Focused Summarization with SLM & Rendering
-
-Raw retrieved passages often contain noise — tangential details, boilerplate, context that doesn't address the query. Dumping everything into the final LLM wastes tokens and dilutes attention.
-
-The solution: **summarize each passage with respect to the query using a small, fast model (SLM) before the final LLM generates the answer.**
-
-![Summarization Flow Diagram](/images/sainageswar/custom_gpt_summarization_flow.jpg)
-
-This two-stage approach focuses attention. The SLM extracts query-relevant content from each passage; the final LLM (ChatGPT in our case) reasons over clean, focused context.
-
-agent-boot's `ToolResultRenderer` handles this:
-
-```go
-// Configure with a fast SLM for summarization
-llmClient := llm.NewAnthropicClient("claude-3-5-haiku-20241022")
-renderer := agentboot.NewToolResultRenderer(
-    agentboot.WithSummarizationModel(llmClient),
-)
-```
-
-Ref: [Using Tool Result Renderer](https://github.com/SaiNageswarS/medicine-rag-custom-gpt/blob/master/controller/query_controller.go#L143)
-
-The renderer summarizes each chunk with respect to the query and formats results as Markdown. Why Markdown over JSON? JSON is verbose, consumes more tokens, and a cluttered JSON context can overwhelm the LLM — leading to hallucinations or missed details. agent-boot's `ToolResultRenderer` formats results to Markdown by default.
-
-```go
-toolResultChunks, err := linq.Pipe4(
-    linq.NewStream(linqCtx, toolResultChan, cancel, 10),
-
-    linq.SelectPar(func(raw *schema.ToolResultChunk) *schema.ToolResultChunk {
-        if summarizeResult {
-            return r.summarizeResult(linqCtx, raw, query, toolInputsMD)
-        }
-
-        // If summarization is not enabled, return the raw result
-        return raw
-    }),
-
-    linq.Where(func(chunk *schema.ToolResultChunk) bool {
-        // Filter out nil results and those marked as irrelevant
-        if chunk == nil {
-            return false
-        }
-
-        return true
-    }),
-
-    linq.Select(func(chunk *schema.ToolResultChunk) string {
-        r.reporter.Send(NewToolExecutionResult(r.toolName, chunk))
-        s := formatToolResultToMD(chunk)
-        return string(s)
-    }),
-
-    linq.ToSlice[string](),
-)
-```
-
-Ref: [Tool Result Renderer Implementation](https://github.com/SaiNageswarS/agent-boot/blob/master/agentboot/tool_result_renderer.go)
-
----
-
-### 6. Wiring Routes
+### 3. Wiring Routes
 
 Controllers implement a `Routes()` method:
 
