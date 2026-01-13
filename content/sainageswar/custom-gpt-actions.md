@@ -2,8 +2,8 @@
 author: "[Sai Nageswar Satchidanand](/sainageswar)"
 date: '2025-01-12T13:24:25Z'
 draft: false
-title: 'Building Custom-GPT Actions & RAG Backend in Go'
-description: '~300 lines of Go for a complete retrieval-augmented generation backend serving ChatGPT Custom GPT Actions'
+title: 'Hybrid Search & Chunk Stitching: Advanced RAG with Custom-GPT Actions in Go'
+description: 'Reciprocal Rank Fusion + contiguous context stitching for production-grade RAG in ~300 lines of Go'
 tags: ['Custom GPT Actions', 'RAG', 'golang']
 categories: ['tech']
 comments: true
@@ -63,9 +63,9 @@ The framework builds a dependency graph and resolves it at startup. No Resolve c
 
 ---
 
-### 2. Self-Describing Models with Auto-Indexed Collections
+### 2. Self-Describing DB Models with Auto-Indexed Collections
 
-Models declare their own index specifications. The ODM creates them on startup if missing:
+DB Models declare their own index specifications. The ODM creates them on startup if missing:
 
 ```go
 type ChunkAnnModel struct {
