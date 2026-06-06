@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 560" width="480" height="560" font-family="monospace, sans-serif">
+
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M1,1 L7,4 L1,7 Z" fill="#718096"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M1,1 L7,4 L1,7 Z" fill="#63b3ed"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M1,1 L7,4 L1,7 Z" fill="#68d391"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="480" height="560" fill="#1a1a2e" rx="12"/>
+
+  <!-- Title -->
+  <text x="200" y="34" text-anchor="middle" fill="#a0aec0" font-size="13" font-weight="bold">Residual Block</text>
+
+  <!-- ── Input ── -->
+  <text x="200" y="62" text-anchor="middle" fill="#e2e8f0" font-size="12">Input  x</text>
+  <!-- arrow down -->
+  <line x1="200" y1="67" x2="200" y2="84" stroke="#718096" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Fork dot -->
+  <circle cx="200" cy="88" r="5" fill="#63b3ed"/>
+
+  <!-- Skip connection: right from fork, down, then arrow into add circle -->
+  <line x1="205" y1="88" x2="360" y2="88"  stroke="#63b3ed" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <line x1="360" y1="88" x2="360" y2="430" stroke="#63b3ed" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <line x1="360" y1="430" x2="334" y2="430" stroke="#63b3ed" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arr-blue)"/>
+
+  <!-- Skip label -->
+  <text x="370" y="252" fill="#63b3ed" font-size="11">skip</text>
+  <text x="370" y="266" fill="#63b3ed" font-size="11">connection</text>
+
+  <!-- Arrow: fork → Conv1 -->
+  <line x1="200" y1="93" x2="200" y2="109" stroke="#718096" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- ── Conv 3×3 (1) ── y=112 h=46 -->
+  <rect x="100" y="112" width="200" height="46" rx="6" fill="#2d3748" stroke="#4a5568" stroke-width="1.5"/>
+  <text x="200" y="130" text-anchor="middle" fill="#e2e8f0" font-size="12" font-weight="bold">Conv 3×3</text>
+  <text x="200" y="148" text-anchor="middle" fill="#a0aec0" font-size="10">stride=1, padding=1</text>
+
+  <!-- arrow -->
+  <line x1="200" y1="158" x2="200" y2="174" stroke="#718096" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- ── Batch Norm (1) ── y=177 h=38 -->
+  <rect x="100" y="177" width="200" height="38" rx="6" fill="#2d3748" stroke="#4a5568" stroke-width="1.5"/>
+  <text x="200" y="201" text-anchor="middle" fill="#e2e8f0" font-size="12" font-weight="bold">Batch Norm</text>
+
+  <!-- arrow -->
+  <line x1="200" y1="215" x2="200" y2="231" stroke="#718096" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- ── ReLU ── y=234 h=38 -->
+  <rect x="100" y="234" width="200" height="38" rx="6" fill="#2d3748" stroke="#4a5568" stroke-width="1.5"/>
+  <text x="200" y="258" text-anchor="middle" fill="#f6ad55" font-size="12" font-weight="bold">ReLU</text>
+
+  <!-- arrow -->
+  <line x1="200" y1="272" x2="200" y2="288" stroke="#718096" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- ── Conv 3×3 (2) ── y=291 h=46 -->
+  <rect x="100" y="291" width="200" height="46" rx="6" fill="#2d3748" stroke="#4a5568" stroke-width="1.5"/>
+  <text x="200" y="309" text-anchor="middle" fill="#e2e8f0" font-size="12" font-weight="bold">Conv 3×3</text>
+  <text x="200" y="327" text-anchor="middle" fill="#a0aec0" font-size="10">stride=1, padding=1</text>
+
+  <!-- arrow -->
+  <line x1="200" y1="337" x2="200" y2="353" stroke="#718096" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- ── Batch Norm (2) ── y=356 h=38 -->
+  <rect x="100" y="356" width="200" height="38" rx="6" fill="#2d3748" stroke="#4a5568" stroke-width="1.5"/>
+  <text x="200" y="380" text-anchor="middle" fill="#e2e8f0" font-size="12" font-weight="bold">Batch Norm</text>
+
+  <!-- F(x) label on main path -->
+  <text x="60" y="384" text-anchor="middle" fill="#a0aec0" font-size="10">F(x)</text>
+
+  <!-- arrow down from BN2 to add circle level -->
+  <line x1="200" y1="394" x2="200" y2="422" stroke="#718096" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- ── Add circle ── cx=200 cy=430 -->
+  <circle cx="200" cy="430" r="18" fill="#2d3748" stroke="#68d391" stroke-width="2"/>
+  <text x="200" y="436" text-anchor="middle" fill="#68d391" font-size="18" font-weight="bold">+</text>
+
+  <!-- F(x) enters from top, x enters from right (skip) — both shown above -->
+
+  <!-- arrow: add circle → ReLU -->
+  <line x1="200" y1="448" x2="200" y2="464" stroke="#718096" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- ── Final ReLU ── y=467 h=38 -->
+  <rect x="100" y="467" width="200" height="38" rx="6" fill="#2d3748" stroke="#4a5568" stroke-width="1.5"/>
+  <text x="200" y="491" text-anchor="middle" fill="#f6ad55" font-size="12" font-weight="bold">ReLU</text>
+
+  <!-- arrow: output -->
+  <line x1="200" y1="505" x2="200" y2="521" stroke="#718096" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Output label -->
+  <text x="200" y="538" text-anchor="middle" fill="#e2e8f0" font-size="12">Y = X + F(X)</text>
+
+  <!-- Legend -->
+  <line x1="26" y1="430" x2="50" y2="430" stroke="#63b3ed" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <text x="55" y="434" fill="#63b3ed" font-size="10">x  (skip)</text>
+  <line x1="26" y1="448" x2="50" y2="448" stroke="#718096" stroke-width="1.5"/>
+  <text x="55" y="452" fill="#a0aec0" font-size="10">F(x)  (residual)</text>
+
+</svg>
