@@ -84,6 +84,8 @@ The exact answer after 2 months is $100 \cdot e^{0.5 \times 2} \approx 272$. Eul
 
 ### Each Residual Block Is One Euler Step
 
+![Euler Step](/images/sainageswar/resnet-euler-step.svg)
+
 Now look at a residual block:
 
 $$\mathbf{x}_{k+1} = \mathbf{x}_k + \mathcal{F}(\mathbf{x}_k)$$

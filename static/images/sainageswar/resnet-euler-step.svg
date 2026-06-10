@@ -1,0 +1,215 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1260 560" width="1260" height="560" font-family="monospace, sans-serif">
+
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M1,1 L7,4 L1,7 Z" fill="#718096"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M1,1 L7,4 L1,7 Z" fill="#63b3ed"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M1,1 L7,4 L1,7 Z" fill="#68d391"/>
+    </marker>
+    <marker id="arr-orange" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M1,1 L7,4 L1,7 Z" fill="#f6ad55"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1260" height="560" fill="#1a1a2e" rx="12"/>
+
+  <!-- Title -->
+  <text x="630" y="34" text-anchor="middle" fill="#a0aec0" font-size="13" font-weight="bold">Each Residual Block Is One Euler Step</text>
+
+  <!-- ══════════════════════════════════════════════
+       BLOCK 1  (centre-x = 215)
+       ══════════════════════════════════════════════ -->
+
+  <text x="215" y="68" text-anchor="middle" fill="#e2e8f0" font-size="12">x₀</text>
+  <line x1="215" y1="73" x2="215" y2="90" stroke="#718096" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <circle cx="215" cy="94" r="5" fill="#63b3ed"/>
+
+  <line x1="220" y1="94"  x2="345" y2="94"  stroke="#63b3ed" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <line x1="345" y1="94"  x2="345" y2="430" stroke="#63b3ed" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <line x1="345" y1="430" x2="319" y2="430" stroke="#63b3ed" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arr-blue)"/>
+
+  <text x="354" y="258" fill="#63b3ed" font-size="10">skip</text>
+  <text x="354" y="271" fill="#63b3ed" font-size="10">x₀</text>
+
+  <line x1="215" y1="99" x2="215" y2="115" stroke="#718096" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <rect x="115" y="118" width="200" height="46" rx="6" fill="#2d3748" stroke="#4a5568" stroke-width="1.5"/>
+  <text x="215" y="136" text-anchor="middle" fill="#e2e8f0" font-size="12" font-weight="bold">Conv 3×3</text>
+  <text x="215" y="154" text-anchor="middle" fill="#a0aec0" font-size="10">stride=1, padding=1</text>
+
+  <line x1="215" y1="164" x2="215" y2="180" stroke="#718096" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <rect x="115" y="183" width="200" height="38" rx="6" fill="#2d3748" stroke="#4a5568" stroke-width="1.5"/>
+  <text x="215" y="207" text-anchor="middle" fill="#e2e8f0" font-size="12" font-weight="bold">Batch Norm</text>
+
+  <line x1="215" y1="221" x2="215" y2="237" stroke="#718096" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <rect x="115" y="240" width="200" height="38" rx="6" fill="#2d3748" stroke="#4a5568" stroke-width="1.5"/>
+  <text x="215" y="264" text-anchor="middle" fill="#f6ad55" font-size="12" font-weight="bold">ReLU</text>
+
+  <line x1="215" y1="278" x2="215" y2="294" stroke="#718096" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <rect x="115" y="297" width="200" height="46" rx="6" fill="#2d3748" stroke="#4a5568" stroke-width="1.5"/>
+  <text x="215" y="315" text-anchor="middle" fill="#e2e8f0" font-size="12" font-weight="bold">Conv 3×3</text>
+  <text x="215" y="333" text-anchor="middle" fill="#a0aec0" font-size="10">stride=1, padding=1</text>
+
+  <line x1="215" y1="343" x2="215" y2="359" stroke="#718096" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <rect x="115" y="362" width="200" height="38" rx="6" fill="#2d3748" stroke="#4a5568" stroke-width="1.5"/>
+  <text x="215" y="386" text-anchor="middle" fill="#e2e8f0" font-size="12" font-weight="bold">Batch Norm</text>
+
+  <text x="76" y="300" text-anchor="middle" fill="#a0aec0" font-size="11">F(x₀)</text>
+
+  <line x1="215" y1="400" x2="215" y2="422" stroke="#718096" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <circle cx="215" cy="430" r="18" fill="#2d3748" stroke="#68d391" stroke-width="2"/>
+  <text x="215" y="436" text-anchor="middle" fill="#68d391" font-size="18" font-weight="bold">+</text>
+
+  <line x1="215" y1="448" x2="215" y2="464" stroke="#718096" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <rect x="115" y="467" width="200" height="38" rx="6" fill="#2d3748" stroke="#4a5568" stroke-width="1.5"/>
+  <text x="215" y="491" text-anchor="middle" fill="#f6ad55" font-size="12" font-weight="bold">ReLU</text>
+
+  <text x="215" y="528" text-anchor="middle" fill="#68d391" font-size="11">x₁ = x₀ + F(x₀)</text>
+  <text x="215" y="543" text-anchor="middle" fill="#a0aec0" font-size="10">← Euler step k=0</text>
+
+  <!-- ── Connector 1→2 ── -->
+  <line x1="315" y1="486" x2="430" y2="486" stroke="#718096" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="372" y="478" text-anchor="middle" fill="#e2e8f0" font-size="12">x₁</text>
+
+  <!-- ══════════════════════════════════════════════
+       BLOCK 2  (centre-x = 645)
+       ══════════════════════════════════════════════ -->
+
+  <line x1="430" y1="486" x2="430" y2="94"  stroke="#718096" stroke-width="1.5"/>
+  <line x1="430" y1="94"  x2="632" y2="94"  stroke="#718096" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <text x="645" y="68" text-anchor="middle" fill="#e2e8f0" font-size="12">x₁</text>
+  <line x1="645" y1="73" x2="645" y2="90" stroke="#718096" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <circle cx="645" cy="94" r="5" fill="#63b3ed"/>
+
+  <line x1="650" y1="94"  x2="775" y2="94"  stroke="#63b3ed" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <line x1="775" y1="94"  x2="775" y2="430" stroke="#63b3ed" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <line x1="775" y1="430" x2="749" y2="430" stroke="#63b3ed" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arr-blue)"/>
+
+  <text x="784" y="258" fill="#63b3ed" font-size="10">skip</text>
+  <text x="784" y="271" fill="#63b3ed" font-size="10">x₁</text>
+
+  <line x1="645" y1="99" x2="645" y2="115" stroke="#718096" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <rect x="545" y="118" width="200" height="46" rx="6" fill="#2d3748" stroke="#4a5568" stroke-width="1.5"/>
+  <text x="645" y="136" text-anchor="middle" fill="#e2e8f0" font-size="12" font-weight="bold">Conv 3×3</text>
+  <text x="645" y="154" text-anchor="middle" fill="#a0aec0" font-size="10">stride=1, padding=1</text>
+
+  <line x1="645" y1="164" x2="645" y2="180" stroke="#718096" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <rect x="545" y="183" width="200" height="38" rx="6" fill="#2d3748" stroke="#4a5568" stroke-width="1.5"/>
+  <text x="645" y="207" text-anchor="middle" fill="#e2e8f0" font-size="12" font-weight="bold">Batch Norm</text>
+
+  <line x1="645" y1="221" x2="645" y2="237" stroke="#718096" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <rect x="545" y="240" width="200" height="38" rx="6" fill="#2d3748" stroke="#4a5568" stroke-width="1.5"/>
+  <text x="645" y="264" text-anchor="middle" fill="#f6ad55" font-size="12" font-weight="bold">ReLU</text>
+
+  <line x1="645" y1="278" x2="645" y2="294" stroke="#718096" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <rect x="545" y="297" width="200" height="46" rx="6" fill="#2d3748" stroke="#4a5568" stroke-width="1.5"/>
+  <text x="645" y="315" text-anchor="middle" fill="#e2e8f0" font-size="12" font-weight="bold">Conv 3×3</text>
+  <text x="645" y="333" text-anchor="middle" fill="#a0aec0" font-size="10">stride=1, padding=1</text>
+
+  <line x1="645" y1="343" x2="645" y2="359" stroke="#718096" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <rect x="545" y="362" width="200" height="38" rx="6" fill="#2d3748" stroke="#4a5568" stroke-width="1.5"/>
+  <text x="645" y="386" text-anchor="middle" fill="#e2e8f0" font-size="12" font-weight="bold">Batch Norm</text>
+
+  <text x="506" y="300" text-anchor="middle" fill="#a0aec0" font-size="11">F(x₁)</text>
+
+  <line x1="645" y1="400" x2="645" y2="422" stroke="#718096" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <circle cx="645" cy="430" r="18" fill="#2d3748" stroke="#68d391" stroke-width="2"/>
+  <text x="645" y="436" text-anchor="middle" fill="#68d391" font-size="18" font-weight="bold">+</text>
+
+  <line x1="645" y1="448" x2="645" y2="464" stroke="#718096" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <rect x="545" y="467" width="200" height="38" rx="6" fill="#2d3748" stroke="#4a5568" stroke-width="1.5"/>
+  <text x="645" y="491" text-anchor="middle" fill="#f6ad55" font-size="12" font-weight="bold">ReLU</text>
+
+  <text x="645" y="528" text-anchor="middle" fill="#68d391" font-size="11">x₂ = x₁ + F(x₁)</text>
+  <text x="645" y="543" text-anchor="middle" fill="#a0aec0" font-size="10">← Euler step k=1</text>
+
+  <!-- ── Connector 2→3 ── -->
+  <line x1="745" y1="486" x2="860" y2="486" stroke="#718096" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="802" y="478" text-anchor="middle" fill="#e2e8f0" font-size="12">x₂</text>
+
+  <!-- ══════════════════════════════════════════════
+       BLOCK 3  (centre-x = 1075)
+       ══════════════════════════════════════════════ -->
+
+  <line x1="860" y1="486" x2="860" y2="94"  stroke="#718096" stroke-width="1.5"/>
+  <line x1="860" y1="94"  x2="1062" y2="94" stroke="#718096" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <text x="1075" y="68" text-anchor="middle" fill="#e2e8f0" font-size="12">x₂</text>
+  <line x1="1075" y1="73" x2="1075" y2="90" stroke="#718096" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <circle cx="1075" cy="94" r="5" fill="#63b3ed"/>
+
+  <line x1="1080" y1="94"  x2="1205" y2="94"  stroke="#63b3ed" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <line x1="1205" y1="94"  x2="1205" y2="430" stroke="#63b3ed" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <line x1="1205" y1="430" x2="1179" y2="430" stroke="#63b3ed" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arr-blue)"/>
+
+  <text x="1214" y="258" fill="#63b3ed" font-size="10">skip</text>
+  <text x="1214" y="271" fill="#63b3ed" font-size="10">x₂</text>
+
+  <line x1="1075" y1="99" x2="1075" y2="115" stroke="#718096" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <rect x="975" y="118" width="200" height="46" rx="6" fill="#2d3748" stroke="#4a5568" stroke-width="1.5"/>
+  <text x="1075" y="136" text-anchor="middle" fill="#e2e8f0" font-size="12" font-weight="bold">Conv 3×3</text>
+  <text x="1075" y="154" text-anchor="middle" fill="#a0aec0" font-size="10">stride=1, padding=1</text>
+
+  <line x1="1075" y1="164" x2="1075" y2="180" stroke="#718096" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <rect x="975" y="183" width="200" height="38" rx="6" fill="#2d3748" stroke="#4a5568" stroke-width="1.5"/>
+  <text x="1075" y="207" text-anchor="middle" fill="#e2e8f0" font-size="12" font-weight="bold">Batch Norm</text>
+
+  <line x1="1075" y1="221" x2="1075" y2="237" stroke="#718096" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <rect x="975" y="240" width="200" height="38" rx="6" fill="#2d3748" stroke="#4a5568" stroke-width="1.5"/>
+  <text x="1075" y="264" text-anchor="middle" fill="#f6ad55" font-size="12" font-weight="bold">ReLU</text>
+
+  <line x1="1075" y1="278" x2="1075" y2="294" stroke="#718096" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <rect x="975" y="297" width="200" height="46" rx="6" fill="#2d3748" stroke="#4a5568" stroke-width="1.5"/>
+  <text x="1075" y="315" text-anchor="middle" fill="#e2e8f0" font-size="12" font-weight="bold">Conv 3×3</text>
+  <text x="1075" y="333" text-anchor="middle" fill="#a0aec0" font-size="10">stride=1, padding=1</text>
+
+  <line x1="1075" y1="343" x2="1075" y2="359" stroke="#718096" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <rect x="975" y="362" width="200" height="38" rx="6" fill="#2d3748" stroke="#4a5568" stroke-width="1.5"/>
+  <text x="1075" y="386" text-anchor="middle" fill="#e2e8f0" font-size="12" font-weight="bold">Batch Norm</text>
+
+  <text x="936" y="300" text-anchor="middle" fill="#a0aec0" font-size="11">F(x₂)</text>
+
+  <line x1="1075" y1="400" x2="1075" y2="422" stroke="#718096" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <circle cx="1075" cy="430" r="18" fill="#2d3748" stroke="#68d391" stroke-width="2"/>
+  <text x="1075" y="436" text-anchor="middle" fill="#68d391" font-size="18" font-weight="bold">+</text>
+
+  <line x1="1075" y1="448" x2="1075" y2="464" stroke="#718096" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <rect x="975" y="467" width="200" height="38" rx="6" fill="#2d3748" stroke="#4a5568" stroke-width="1.5"/>
+  <text x="1075" y="491" text-anchor="middle" fill="#f6ad55" font-size="12" font-weight="bold">ReLU</text>
+
+  <text x="1075" y="528" text-anchor="middle" fill="#68d391" font-size="11">x₃ = x₂ + F(x₂)</text>
+  <text x="1075" y="543" text-anchor="middle" fill="#a0aec0" font-size="10">← Euler step k=2</text>
+
+  <!-- ── "..." continuation after block 3 ── -->
+  <text x="1232" y="492" fill="#a0aec0" font-size="22" font-weight="bold">···</text>
+
+</svg>
